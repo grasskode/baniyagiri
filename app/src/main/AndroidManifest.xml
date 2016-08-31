@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.grasskode.baniyagiri">
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <!-- Launcher Activity -->
+        <activity
+            android:name="com.grasskode.baniyagiri.activities.LauncherActivity"
+            android:noHistory="true"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Groups Activity -->
+        <activity
+            android:name="com.grasskode.baniyagiri.activities.GroupsActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!--Manage Groups Activity-->
+        <activity
+            android:name="com.grasskode.baniyagiri.activities.ManageGroupsActivity"
+            android:label="@string/activity_manage_groups"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!--Settings Activity-->
+        <activity
+            android:name="com.grasskode.baniyagiri.activities.SettingsActivity"
+            android:label="@string/activity_settings"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!--Edit Group Activity-->
+        <activity
+            android:name="com.grasskode.baniyagiri.activities.EditGroupActivity"
+            android:label="@string/activity_edit_group"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!--Edit Expense Activity-->
+        <activity
+            android:name="com.grasskode.baniyagiri.activities.EditExpenseActivity"
+            android:label="@string/activity_edit_expense"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!--Configure Analytics Activity-->
+        <activity
+            android:name="com.grasskode.baniyagiri.activities.ReportActivity"
+            android:label="@string/activity_reports"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <service
+            android:name="com.grasskode.baniyagiri.services.FetchAddressIntentService"
+            android:exported="false"/>
+    </application>
+
+</manifest>

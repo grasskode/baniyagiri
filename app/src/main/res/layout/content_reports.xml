@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.ReportActivity"
+    tools:showIn="@layout/activity_reports">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:background="@drawable/selection_border" >
+
+            <TextView android:id="@+id/config_date_from"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="displayDatePicker"
+                android:textSize="15sp"
+                android:textColor="@color/textPrimary"
+                android:textAlignment="center"
+                android:hint="@string/beginning_of_time" />
+
+            <TextView android:id="@+id/config_date_from_x"
+                android:layout_weight="0.15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:clickable="true"
+                android:onClick="clearDateFrom"
+                android:paddingStart="5sp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorDelete"
+                android:text="X"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_weight="0.1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="displayDatePicker"
+            android:textSize="15sp"
+            android:textColor="@color/textSecondary"
+            android:textAlignment="center"
+            android:hint="to" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_width="0dp"
+            android:background="@drawable/selection_border" >
+
+            <TextView android:id="@+id/config_date_to"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:onClick="displayDatePicker"
+                android:textSize="15sp"
+                android:textColor="@color/textPrimary"
+                android:textAlignment="center"
+                android:hint="@string/end_of_time" />
+
+            <TextView android:id="@+id/config_date_to_x"
+                android:layout_weight="0.15"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:clickable="true"
+                android:onClick="clearDateTo"
+                android:paddingStart="5sp"
+                android:background="@android:color/transparent"
+                android:textColor="@color/colorDelete"
+                android:text="X"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <TextView
+            android:layout_weight="0.4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="20dp"
+            android:gravity="center|end"
+            android:textColor="@color/textPrimary"
+            android:text="@string/aggregation"/>
+
+        <Spinner
+            android:background="@drawable/selection_border"
+            android:id="@+id/aggregations_spinner"
+            android:layout_weight="0.6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginRight="20dp"/>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" >
+
+        <com.grasskode.baniyagiri.layouts.FlowLayout
+            android:id="@+id/tags_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </com.grasskode.baniyagiri.layouts.FlowLayout>
+    </ScrollView>
+
+    <AutoCompleteTextView
+        android:id="@+id/ac_tags"
+        android:layout_marginTop="5sp"
+        android:layout_marginBottom="5sp"
+        android:background="@drawable/selection_border"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp"
+        android:completionThreshold="1"
+        android:inputType="text"
+        android:digits="abcdefghijklmnopqrstuvwxyz1234567890 _"
+        android:hint="@string/tag" />
+
+    <View style="@style/divider" />
+
+    <LinearLayout android:id="@+id/total_layout"
+        android:layout_marginTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_weight="0.3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="end"
+            android:textColor="@color/textPrimary"
+            android:text="@string/total" />
+
+        <LinearLayout android:id="@+id/total_container"
+            android:orientation="vertical"
+            android:layout_weight="0.7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View style="@style/divider" />
+
+    <FrameLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/expense_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/empty_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textAlignment="center"
+            android:textColor="@color/textSecondary"
+            android:text="@string/no_expenses_report" />
+    </FrameLayout>
+
+</LinearLayout>

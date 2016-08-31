@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">Baniyagiri</string>
+    <string name="activity_edit_expense">Edit Expense</string>
+    <string name="activity_reports">Report</string>
+    <string name="activity_settings">Settings</string>
+    <string name="activity_manage_groups">Manage Groups</string>
+    <string name="activity_edit_group">Edit Group</string>
+
+    <string name="preference_file_key">com.grasskode.baniyagiri.SHARED_PREFS</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_manage_groups">Manage Groups</string>
+
+    <string name="no_groups">No groups found!\nCreate new ones from \"Manage Groups\" in settings.</string>
+    <string name="no_groups_manage">No groups found.\nCreate groups to make expense management easier!</string>
+    <string name="group_no_tags">Cannot create a group without tags. Groups can only be created on existing tags. Add tags to expenses before creating groups.</string>
+    <string name="no_expenses">No expenses found. \nAdd a new expense now!</string>
+    <string name="no_expenses_report">No expenses match the given criteria</string>
+    <string name="name_too_short">Name too short! Add more characters to make it meaningful.</string>
+    <string name="tag_too_short">Tag too short! Add more characters to make it meaningful.</string>
+    <string name="add_amount">Amount field is empty.</string>
+    <string name="tag_already_present">Tag already present.</string>
+    <string name="error_adding_expense">Error editing expense. Please try again.</string>
+    <string name="error_deleting_expense">Error deleting expense. Please try again.</string>
+    <string name="error_editing_group">Error editing group. Please try again.</string>
+    <string name="error_deleting_group">Error deleting group. Please try again.</string>
+    <string name="error_date_range">Invalid date range.</string>
+    <string name="unknown_action">Unknown action. I have no idea what to do!</string>
+
+    <string name="create">Create</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="currency">INR</string>
+    <string name="amount">0.00</string>
+    <string name="tag">tag</string>
+
+    <string name="beginning_of_time">Beginning of time</string>
+    <string name="end_of_time">End of time</string>
+    <string-array name="aggregations_array">
+        <item>None</item>
+        <item>Daily</item>
+        <item>Weekly</item>
+        <item>Monthly</item>
+        <item>Yearly</item>
+    </string-array>
+
+    <string name="configure_date_from">From :</string>
+    <string name="configure_date_to">Till :</string>
+    <string name="fetch">Fetch</string>
+    <string name="aggregation">Aggregation :</string>
+    <string name="total">Total :</string>\
+    <string name="to">to</string>
+    <string name="group_created_on">Created on : %1$s</string>
+
+    <string name="all_groups">Your Groups</string>
+    <string name="groups_message">Group existing expenses by tags. Create groups in \"Manage Groups\" in the action bar menu.</string>
+    <string name="settings_location">Location tagging</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="settings_location_warning">* Location tags depend on availability</string>
+    <string name="settings_currency">Preferred Currency</string>
+</resources>

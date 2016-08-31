@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <LinearLayout
+        android:id="@+id/expense_ts"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_weight="0.3"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:padding="10dp" >
+
+        <TextView android:id="@+id/expense_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Jan"
+            android:textColor="@color/textPrimary"
+            android:textSize="20sp" />
+
+        <TextView android:id="@+id/expense_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2016"
+            android:textColor="@color/textPrimary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <View style="@style/separator" />
+
+    <LinearLayout
+        android:id="@+id/agg_container"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_width="0dp"
+        android:layout_weight="0.7"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+    </LinearLayout>
+
+</LinearLayout>

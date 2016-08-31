@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="3sp"
+    tools:context=".activities.EditExpenseActivity"
+    android:background="@drawable/tags_border">
+
+    <TextView android:id="@+id/tag_name"
+        android:layout_weight="0.9"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="5sp"
+        android:textColor="@color/textSecondary"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="tag" />
+
+    <TextView android:id="@+id/x_remove"
+        android:layout_weight="0.1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5sp"
+        android:paddingRight="5sp"
+        android:layout_gravity="center"
+        android:textColor="@color/colorDelete"
+        android:text="X"/>
+
+</LinearLayout>
