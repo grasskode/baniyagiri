@@ -30,11 +30,13 @@ public class SettingsActivity extends AppCompatActivity {
     public static final String INITIALIZED = "initialized";
     public static final String PREFERRED_CURRENCY = "curr_code";
     public static final String COUNTRY_TAGGING = "tag_country";
-    public static final String CITY_TAGGING = "tag_city";
+    public static final String LOCALITY_TAGGING = "tag_locality";
+    public static final String ADMIN_TAGGING = "tag_admin";
     public static final String SHOW_GROUPS_MSG = "show_groups_message";
 
     AppCompatCheckBox countryCheckbox;
-    AppCompatCheckBox cityCheckbox;
+    AppCompatCheckBox adminCheckbox;
+    AppCompatCheckBox localityCheckbox;
 
     Spinner currencyView;
     ArrayAdapter<String> currAdapter;
@@ -54,7 +56,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         // get views
         countryCheckbox = (AppCompatCheckBox) findViewById(R.id.cb_country);
-        cityCheckbox = (AppCompatCheckBox) findViewById(R.id.cb_city);
+        adminCheckbox = (AppCompatCheckBox) findViewById(R.id.cb_admin);
+        localityCheckbox = (AppCompatCheckBox) findViewById(R.id.cb_locality);
 
         // populate currencies
         currencyView = (Spinner) findViewById(R.id.currency);
@@ -93,7 +96,8 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         // set location tagging from preferences
-        cityCheckbox.setChecked(sharedPref.getBoolean(CITY_TAGGING, false));
+        localityCheckbox.setChecked(sharedPref.getBoolean(LOCALITY_TAGGING, false));
+        adminCheckbox.setChecked(sharedPref.getBoolean(ADMIN_TAGGING, false));
         countryCheckbox.setChecked(sharedPref.getBoolean(COUNTRY_TAGGING, false));
     }
 
@@ -108,13 +112,22 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 editor.apply();
                 break;
-            case R.id.cb_city:
-                if(cityCheckbox.isChecked()) {
-                    editor.putBoolean(CITY_TAGGING, true);
+            case R.id.cb_admin:
+                if(adminCheckbox.isChecked()) {
+                    editor.putBoolean(ADMIN_TAGGING, true);
                 } else {
-                    editor.putBoolean(CITY_TAGGING, false);
+                    editor.putBoolean(ADMIN_TAGGING, false);
                 }
                 editor.apply();
+                break;
+            case R.id.cb_locality:
+                if(localityCheckbox.isChecked()) {
+                    editor.putBoolean(LOCALITY_TAGGING, true);
+                } else {
+                    editor.putBoolean(LOCALITY_TAGGING, false);
+                }
+                editor.apply();
+                break;
             default:
                 // do nothing
         }

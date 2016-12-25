@@ -93,6 +93,10 @@ public class GroupsActivity extends ToastResultActivity {
                 i = new Intent(GroupsActivity.this, ManageGroupsActivity.class);
                 startActivityForResult(i, REQ_CODE_MANAGE_GROUPS);
                 return true;
+            case R.id.action_import_expenses:
+                i = new Intent(GroupsActivity.this, ImportExpensesActivity.class);
+                startActivityForResult(i, REQ_CODE_IMPORT);
+                return true;
             default:
                 Toast.makeText(this, getResources().getString(R.string.unknown_action), Toast.LENGTH_SHORT)
                         .show();

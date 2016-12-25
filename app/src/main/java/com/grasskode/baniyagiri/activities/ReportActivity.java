@@ -1,19 +1,27 @@
 package com.grasskode.baniyagiri.activities;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.BaseAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -30,13 +38,19 @@ import com.grasskode.baniyagiri.elements.Aggregation;
 import com.grasskode.baniyagiri.elements.Expense;
 import com.grasskode.baniyagiri.elements.Group;
 import com.grasskode.baniyagiri.layouts.FlowLayout;
+import com.opencsv.CSVWriter;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -56,6 +70,7 @@ public class ReportActivity extends ToastResultActivity {
     List<String> negativeTags;
     List<Expense> expenses;
     ExpenseManager manager;
+    TagsManager tagsManager;
 
     TextView dateFromView;
     TextView clearDateFromView;
@@ -73,12 +88,15 @@ public class ReportActivity extends ToastResultActivity {
 
     BaseAdapter adapter;
 
+    AlertDialog.Builder destDialog;
+    EditText destInput;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reports);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);;
+        setSupportActionBar(toolbar);
 
         // get views
         dateFromView = (TextView) findViewById(R.id.config_date_from);
@@ -97,6 +115,26 @@ public class ReportActivity extends ToastResultActivity {
         inflater = (LayoutInflater) getApplicationContext().getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
+        // destination dialog box
+        destDialog = new AlertDialog.Builder(this);
+        destDialog.setTitle("Choose a file name");
+        destInput = new EditText(this);
+        destInput.setInputType(InputType.TYPE_CLASS_TEXT);
+        destDialog.setView(destInput);
+        // Set up the buttons
+        destDialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                exportExpenses(destInput.getText().toString());
+            }
+        });
+        destDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
         // initialize
         tags = new ArrayList<>();
         negativeTags = new ArrayList<>();
@@ -104,6 +142,7 @@ public class ReportActivity extends ToastResultActivity {
 
         // initialize expense manager
         manager = new ExpenseManager(this);
+        tagsManager = new TagsManager(this);
 
         // set up autocomplete tags list
         TagsManager tagsManager = new TagsManager(this);
@@ -169,6 +208,33 @@ public class ReportActivity extends ToastResultActivity {
 
         // create report for the given parameters
         createReport();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.report_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here.
+        int id = item.getItemId();
+
+        switch(id) {
+            case R.id.action_export_expenses :
+                // ask for destination and export
+                SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd-HHmm");
+                destInput.setText(String.format("expenses-%s", sdfDate.format(new Date())));
+                destDialog.show();
+                break;
+            default:
+                Toast.makeText(this, getResources().getString(R.string.unknown_action), Toast.LENGTH_SHORT)
+                        .show();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void displayDatePicker(View view) {
@@ -280,7 +346,7 @@ public class ReportActivity extends ToastResultActivity {
         try {
             datetime = sdf.parse(String.format("%s", dateStr)).getTime();
         } catch (ParseException e) {
-            Log.e(EditExpenseActivity.class.getSimpleName(), "Error parsing datetime.", e);
+            Log.e(ReportActivity.class.getSimpleName(), "Error parsing datetime.", e);
         }
 
         return datetime;
@@ -296,7 +362,7 @@ public class ReportActivity extends ToastResultActivity {
         try {
             datetime = sdf.parse(String.format("%s", dateStr)).getTime();
         } catch (ParseException e) {
-            Log.e(EditExpenseActivity.class.getSimpleName(), "Error parsing datetime.", e);
+            Log.e(ReportActivity.class.getSimpleName(), "Error parsing datetime.", e);
         }
 
         Calendar cal = Calendar.getInstance(Locale.getDefault());
@@ -415,4 +481,44 @@ public class ReportActivity extends ToastResultActivity {
             createReport();
         }
     }
+
+    public void exportExpenses(String destination) {
+        // check if external storage is writable
+        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+            // finalize file name
+            int count = 0;
+            String ext = ".csv";
+
+            File destFolder = new File(Environment.getExternalStorageDirectory(),
+                    getString(R.string.app_name).toLowerCase());
+            if (!destFolder.exists()) {
+                destFolder.mkdirs();
+            }
+
+            File dest = new File(destFolder, destination+ext);
+            while(dest.exists()) {
+                count += 1;
+                dest = new File(destFolder, destination+"_"+count+ext);
+            }
+            try{
+                dest.createNewFile();
+                CSVWriter writer = new CSVWriter(new FileWriter(dest));
+                for(Expense e : expenses) {
+                    e.setTags(tagsManager.getExpenseTags(e.getId()));
+                    writer.writeNext(e.toCSVRow());
+                }
+                writer.close();
+                Toast.makeText(this, String.format(getString(R.string.export_completed), dest.getName()),
+                        Toast.LENGTH_LONG).show();
+            } catch (IOException e) {
+                Log.e(ReportActivity.class.getSimpleName(), "Error exporting expenses.", e);
+                Toast.makeText(this, getString(R.string.error_export), Toast.LENGTH_LONG)
+                        .show();
+            }
+        } else {
+            Toast.makeText(this, getString(R.string.error_external_storage), Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
 }

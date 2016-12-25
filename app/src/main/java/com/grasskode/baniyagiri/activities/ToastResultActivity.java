@@ -14,6 +14,7 @@ public abstract class ToastResultActivity extends AppCompatActivity {
     protected static final int REQ_CODE_MANAGE_GROUPS = 3;
     protected static final int REQ_CODE_SETTINGS = 4;
     protected static final int REQ_CODE_EDIT_GROUP = 5;
+    protected static final int REQ_CODE_IMPORT = 6;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

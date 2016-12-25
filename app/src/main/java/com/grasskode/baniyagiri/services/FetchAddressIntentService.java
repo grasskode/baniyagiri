@@ -47,11 +47,13 @@ public class FetchAddressIntentService extends IntentService {
             deliverResultToReceiver(null);
         } else {
             Address address = addresses.get(0);
-            String town = address.getAdminArea();
+            Log.i("FETCH_ADDRESS", String.format("Complete address -> %s", address.toString()));
+            String admin = address.getAdminArea();
+            String locality = address.getLocality();
             String country = address.getCountryName();
 
-            Log.i("FETCH_ADDRESS", String.format("Found address -> %s, %s", town, country));
-            deliverResultToReceiver(new String[]{town, country});
+            Log.i("FETCH_ADDRESS", String.format("Found address -> %s, %s, %s", locality, admin, country));
+            deliverResultToReceiver(new String[]{locality, admin, country});
         }
     }
 

@@ -3,6 +3,7 @@
     package="com.grasskode.baniyagiri">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -65,6 +66,14 @@
         <activity
             android:name="com.grasskode.baniyagiri.activities.ReportActivity"
             android:label="@string/activity_reports"
+            android:windowSoftInputMode="adjustPan"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <!--Import Activity-->
+        <activity
+            android:name="com.grasskode.baniyagiri.activities.ImportExpensesActivity"
+            android:label="@string/activity_import"
             android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>

@@ -92,7 +92,8 @@ public class EditExpenseActivity extends AppCompatActivity implements
     AddressResultReceiver locationResultReceiver;
 
     boolean countryTagging;
-    boolean cityTagging;
+    boolean adminTagging;
+    boolean localityTagging;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -183,7 +184,8 @@ public class EditExpenseActivity extends AppCompatActivity implements
 
         // location tagging
         countryTagging = false;
-        cityTagging = false;
+        adminTagging = false;
+        localityTagging = false;
 
         setExpense();
     }
@@ -245,7 +247,8 @@ public class EditExpenseActivity extends AppCompatActivity implements
             currencyView.setSelection(currAdapter.getPosition(code));
 
             countryTagging = sharedPref.getBoolean(SettingsActivity.COUNTRY_TAGGING, false);
-            cityTagging = sharedPref.getBoolean(SettingsActivity.CITY_TAGGING, false);
+            adminTagging = sharedPref.getBoolean(SettingsActivity.ADMIN_TAGGING, false);
+            localityTagging = sharedPref.getBoolean(SettingsActivity.LOCALITY_TAGGING, false);
         }
     }
 
@@ -254,7 +257,7 @@ public class EditExpenseActivity extends AppCompatActivity implements
         super.onResume();
 
         locationResultReceiver = null;
-        if(expense == null && (countryTagging || cityTagging) && locationTags == null) {
+        if(expense == null && (countryTagging || adminTagging || localityTagging) && locationTags == null) {
             // get location tags
             googleApiClient.connect();
 
@@ -492,12 +495,17 @@ public class EditExpenseActivity extends AppCompatActivity implements
 
             if(result.length > 0 && locationTags == null) {
                 locationTags = new ArrayList<>();
-                String cityTag = result[0];
-                if(cityTagging && cityTag != null) {
-                    locationTags.add(cityTag);
-                    addTag(cityTag);
+                String localityTag = result[0];
+                if(localityTagging && localityTag != null) {
+                    locationTags.add(localityTag);
+                    addTag(localityTag);
                 }
-                String countryTag = result[1];
+                String adminTag = result[1];
+                if(adminTagging && adminTag != null) {
+                    locationTags.add(adminTag);
+                    addTag(adminTag);
+                }
+                String countryTag = result[2];
                 if(countryTagging && countryTag != null) {
                     locationTags.add(countryTag);
                     addTag(countryTag);

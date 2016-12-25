@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".activities.ImportExpensesActivity"
+    tools:showIn="@layout/activity_import">
+
+    <Button android:id="@+id/choose_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp"
+        android:text="@string/choose_import"
+        android:textColor="@color/textPrimary"
+        android:background="@color/colorPrimaryLight"
+        android:onClick="chooseFile" />
+
+    <LinearLayout android:id="@+id/import_details"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10sp">
+
+        <View style="@style/divider" />
+
+        <TextView android:id="@+id/import_file"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp" />
+
+        <TextView android:id="@+id/import_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" >
+
+            <com.grasskode.baniyagiri.layouts.FlowLayout
+                android:id="@+id/tags_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </com.grasskode.baniyagiri.layouts.FlowLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_marginTop="10sp"
+            android:layout_marginBottom="10sp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView android:id="@+id/add_tag"
+                android:background="@drawable/selection_border"
+                android:layout_weight="0.8"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginRight="20sp"
+                android:digits="abcdefghijklmnopqrstuvwxyz1234567890 _"
+                android:completionThreshold="1"
+                android:inputType="text"
+                android:hint="@string/tag" />
+
+            <ImageView
+                android:layout_weight="0.2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:tint="@color/colorAccent"
+                android:clickable="true"
+                android:onClick="addTag"
+                android:src="@drawable/ic_add_black_24dp" />
+        </LinearLayout>
+
+        <Button android:id="@+id/import_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:text="@string/import_expenses"
+            android:textColor="@color/textPrimary"
+            android:background="@color/deactivated"
+            android:enabled="false"
+            android:onClick="importExpenses" />
+    </LinearLayout>
+
+
+    android:visibility="gone"
+
+</LinearLayout>

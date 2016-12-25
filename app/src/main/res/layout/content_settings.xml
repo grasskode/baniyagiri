@@ -73,10 +73,35 @@
             android:gravity="center_vertical"
             android:textSize="17sp"
             android:textColor="@color/textPrimary"
-            android:text="@string/city" />
+            android:text="@string/admin" />
 
         <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/cb_city"
+            android:id="@+id/cb_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:onClick="toggleLocationTagging"
+            android:layout_gravity="end"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginLeft="50sp"
+        android:layout_marginRight="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:layout_width="0sp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="17sp"
+            android:textColor="@color/textPrimary"
+            android:text="@string/locality" />
+
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/cb_locality"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:clickable="true"

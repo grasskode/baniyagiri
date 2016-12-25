@@ -30,7 +30,8 @@ public class LauncherActivity extends Activity {
             String code = Currency.getInstance(getResources().getConfiguration().locale).getCurrencyCode();
             editor.putString(SettingsActivity.PREFERRED_CURRENCY, code);
             editor.putBoolean(SettingsActivity.COUNTRY_TAGGING, true);
-            editor.putBoolean(SettingsActivity.CITY_TAGGING, true);
+            editor.putBoolean(SettingsActivity.ADMIN_TAGGING, true);
+            editor.putBoolean(SettingsActivity.LOCALITY_TAGGING, true);
             editor.putBoolean(SettingsActivity.INITIALIZED, true);
             editor.apply();
         }
